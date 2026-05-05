@@ -20,14 +20,14 @@ Tu dois répondre UNIQUEMENT avec un objet JSON valide correspondant exactement 
 Voici l'idée de l'utilisateur :
 "${idea}"`;
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.my_api_key}`,
+      Authorization: `Bearer ${process.env.my_api_key_mistral}`,
     },
     body: JSON.stringify({
-      model: "gpt-4o",
+      model: "mistral-large-latest",
       response_format: { type: "json_object" },
       messages: [
         {
@@ -43,8 +43,8 @@ Voici l'idée de l'utilisateur :
   const data = await response.json();
   
   if (!response.ok) {
-    console.error("OpenAI Error:", data);
-    throw new Error(data.error?.message || "Failed to analyze idea. Make sure your API key is valid.");
+    console.error("Mistral Error:", data);
+    throw new Error(data.message || "Failed to analyze idea. Make sure your API key is valid.");
   }
 
   try {
